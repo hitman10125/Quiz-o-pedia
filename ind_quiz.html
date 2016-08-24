@@ -1,0 +1,495 @@
+<template name="ApplicationLayout">
+
+	{{>yield "template1"}}
+	{{>yield "template2"}}
+
+	
+
+
+</template>
+
+
+<template name="appBody">
+ 		<div class="container">
+ 			<div class="row">
+ 				<div class="col-md-3" id="features">
+ 					<h3 id="feat_head"><b>Features!!</b></h3>
+ 					
+ 						<p>Meant for children and adults alike, the only requirement being the passion to take quizzes and learn</p>
+ 						<p>Take quizzes individually and learn</p>
+ 						<p>Take quizzes in a group with your peers and have fun</p>
+ 						<p>Attend regular sessions of headrush at the comfort of your place</p>
+ 						<p>Quizzes are provided happily by HeadRush-the quizzing club of DA-IICT</p>
+ 						
+ 					
+ 				</div>	
+ 				<div class="col-md-5">
+ 					<img class="img-responsive img-circle" src="https://tttech.files.wordpress.com/2012/10/quiz.jpg" alt="Cinque-Terre" />
+ 				</div>
+ 				<div class="col-md-4">
+ 					{{> signupForm}}
+ 				</div>
+
+ 			</div>	
+ 		</div>
+
+
+</template>
+
+
+<template name = "ranking">
+	<div class = "container">
+	<table class="table table-striped"> 
+        <thead>
+            <tr>
+               <th>Rank</th>
+                <th>username</th>
+              <th>Score</th>
+               
+            </tr>
+        </thead>
+		
+        <tbody>
+        	{{#each userRanking}}
+            <tr>
+                <td>{{arr1}}</td>
+                <td>{{arr2}}</td>
+                <td>{{arr3}}</td>
+            </tr>
+            {{/each}}
+        </tbody>
+</table>
+</div>
+	
+
+<button type="submit" class="btn btn-primary btn-primary btn3d" value='submit' id="home2">Go back to home</button>
+	
+
+
+</template>	
+
+
+<template name="signupForm">
+		<form id="signup-form">
+			<h3 id="sub_title">Sign Up</h3>
+
+			<label for="signup-username">Username</label>
+			<input type="text" id="signup-username" class="form-control" placeholder="Username" /><br />
+			   
+             
+			<label for="signup-email">Email</label>
+			<input type="text" id="signup-email" class="form-control" placeholder="Email" /><br />
+
+			
+			<label for="signup-password">Password</label>
+			<input type="password" id="signup-password" class="form-control" placeholder="Password" /><br />
+			
+		    
+			
+			<label for="signup-confirm">Confirm Password</label>
+			<input type="password" id="signup-confirm" class="form-control" placeholder="Confirm password" /><br />
+
+			<button class="btn btn-primary" type="submit">SignUp</button>
+
+		</form>
+
+	
+
+</template>
+
+
+
+
+<template name="emptyTemplate">
+
+</template>
+
+<template name="waiting_time">
+	<h2 id="qwerty">Waiting for others Users to Join....</h2>
+
+	<link href='https://fonts.googleapis.com/css?family=Orbitron' rel='stylesheet' type='text/css'>
+{{#unless ended}}
+	<h1 id="timer" style="font-family: 'Orbitron', sans-serif;">{{time_left}}</h1>
+{{/unless}}
+	<h2 id="info">Quiz Will begin Soon...</h2>
+
+
+
+
+</template>
+
+<template name="navigation">
+	<nav class="navbar navbar-inverse">
+		<div class="container-fluid">
+			<div class="navbar-header">
+				<button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#mainNavBar">
+					<span class="icon-bar"></span>
+					<span class="icon-bar"></span>
+					<span class="icon-bar"></span>
+				</button>
+				<a href="#" class="navbar-brand"><i>Quiz-o-Pedia</i></a>
+			</div>
+
+		  	<div class="collapse navbar-collapse" id="mainNavBar">
+		  		<ul class="nav navbar-nav">
+		  			<li class="active"><a href="{{pathFor route='quiz'}}" id="home">HOME</a></li>
+		  			{{#if currentUser}}
+		  			<li><a href="{{pathFor route='profile1'}}" id="profileButton">PROFILE</a></li>
+		  			{{/if}}
+		  			<li><a href="{{pathFor route='rules'}}" id="ruleButton">FAQ</a></li>
+		  			{{#if currentUser}}
+		  				{{#if isAdmin}}
+		  					<li><a href="{{pathFor route='addquiz'}}" id="addquiz">ADD-QUIZ</a></li>
+		  				{{/if}}
+		  			{{/if}}
+		  		</ul>
+				<ul class="nav navbar-nav navbar-right">
+					{{#if currentUser}}	
+						<li><a href="{{pathFor route='home'}}" id="logoutbtn">LOGOUT</a></li>
+					{{else}}
+						<li><input type="text" id="login-username" placeholder="Username"></li>
+						<li><input type="password" id="login-password" placeholder="Password" /></li>
+						<li><button class="btn btn-primary" type="submit" id="loginbtn">LOGIN</button></li>
+					{{/if}}
+				</ul>
+			</div>
+		</div>
+	</nav>
+	{{> yield}}
+
+	
+
+</template>
+
+<template name="quizSelect">
+<div class="container">
+		
+	<form class="quizParameters">
+
+			<label><h3 align="center"><b>Type</b></h3></label>
+		<div class="funkyradio">
+		<div class="funkyradio-primary">		
+			<input type="radio" name="quizType" id="radio1" value = "Individual" checked = "checked" required /> 
+			<label for = "radio1"> Individual</label>
+		</div>
+		<div class="funkyradio-primary">
+			<input type="radio" name="quizType" id="radio2" value = "Group" required/> 
+			<label for = "radio2"> Group</label>
+		</div>
+	</div>
+
+
+		<div class="form-group" id="cat">
+			<label>Category:</label>
+			<select id="quizCategory" class="button btn-primary">
+			  <option value="General">General</option>
+			  <option value="MELA">MELA</option>
+			  <option value="Sports">Sports</option>
+			</select>
+		</div>
+
+		
+
+	<button type='submit' class="btn btn-primary btn-primary btn3d" value='submit'>Take Quiz</button>
+	</form>
+
+	
+	{{> Template.dynamic template="online"}}<br />
+	<div class="infor">
+	<h3>What We Offer</h3>
+	<ul>
+		<li><b><h4>Different modes of quizzing</h4></b></li>
+		<ul>
+			<li><b>Individual:</b> Take quizzes individually and strive to learn and get an assessment</li>
+			<li><b>Group:</b> Take quizzes in a group with yor peers. Once a group quiz is initiated a timer of 60 seconds will start which will allow other users to subscribe to the quiz. Once you do that, you will be directed to the countdown timer.</li>
+			<li>You will also be able to subscribe to a group quiz initiated by some other user within a time frame. </li>
+		</ul>
+		<li><b><h4>What are the different categories</h4></b></li>
+		<ul>
+			<li><b>General:</b> Covers questions from all the topics the HeadRush community can think of</li>
+			<li><b>Sports:</b> Covers questions from the world of Sports</li>
+			<li><b>MELA:</b> Covers questions from the field of music, entertainment, literature and arts</li> 
+		</ul>
+
+	</ul>
+	</div>
+</div>
+
+</template>
+
+<template name="questionSelect">
+	<div class="row">
+	<div class="container">
+	<div class="col-md-10">
+	</div>
+	<div class="col-md-2">
+		<h4>Time Left </h4><h3> <mark>{{time_left}}</mark></h3>
+	</div>
+
+	<div class="form-group">
+		<label><h2>Questions: </h2></label>
+		<input type="button" class="btn btn-primary btn-primary btn3d" style="background-color:red" name="questionNumber" value="1">
+		<input type="button" class="btn btn-primary btn-primary btn3d" name="questionNumber" value="2">
+		<input type="button" class="btn btn-primary btn-primary btn3d" name="questionNumber" value="3">
+		<input type="button" class="btn btn-primary btn-primary btn3d" name="questionNumber" value="4">
+		<input type="button" class="btn btn-primary btn-primary btn3d" name="questionNumber" value="5">
+		<input type="button" class="btn btn-primary btn-primary btn3d" name="questionNumber" value="6">
+		<input type="button" class="btn btn-primary btn-primary btn3d" name="questionNumber" value="7">
+		<input type="button" class="btn btn-primary btn-primary btn3d" name="questionNumber" value="8">
+		<input type="button" class="btn btn-primary btn-primary btn3d" name="questionNumber" value="9">
+		<input type="button" class="btn btn-primary btn-primary btn3d" name="questionNumber" value="10">
+		
+	</div>
+</div>
+</div>
+
+
+</template>
+
+<template name="questionShow">
+	<div class="container">
+	{{questionData.question}}
+	 <div class="funkyradio">
+	<div class="funkyradio-success">
+		<input type="radio" name="questionAnswer" id="radio1" value = "{{questionData.option1}}"/>
+		<label for = "radio1"> {{questionData.option1}} </label>
+	</div>
+	<div class="funkyradio-success">
+		<input type="radio" name="questionAnswer" id="radio2" value = "{{questionData.option2}}"/>
+		<label for = "radio2"> {{questionData.option2}} </label>
+	</div>
+	<div class="funkyradio-success">
+		<input type="radio" name="questionAnswer" id="radio3" value = "{{questionData.option3}}"/>
+		<label for = "radio3"> {{questionData.option3}} </label>
+	</div>
+	<div class="funkyradio-success">
+		<input type="radio" name="questionAnswer" id="radio4" value = "{{questionData.option4}}"/>
+		<label for = "radio4"> {{questionData.option4}} </label>
+	</div>
+	</div>
+	 	<button type='submit' class="btn btn-primary btn-primary btn3d scoreCard" value='submit' id="onsubmitbutton">Submit Quiz</button>
+	
+	 </div>
+
+
+</template>
+
+<template name="online">
+
+
+		{{#if totalHeadrushQuizzes}}
+				<p>Headrush Quizzes:</p>
+				<ul>
+				{{#each showHeadRushQuizzes}}
+				<li>Category:{{category}} Start Time:{{date}},{{time}}</li>
+				{{#if subscribe}}
+				<input type="button" class="btn btn-primary btn-primary btn3d" value="Subscribe" id="{{_id}}">
+				{{/if}}	
+				{{/each}}
+				</ul>
+		{{/if}}
+
+		{{#if totalGroupQuizzes}}
+				<p>Group quizzes to start soon</p>
+				<ul>
+				{{#each showGroupQuizzes}}
+				<li>Category:{{category}} Initiated By: <b>{{username}}</b>
+				</li>
+				<input type="button" class="btn btn-primary btn-primary btn3d" value="Subscribe" id="{{_id}}">
+				{{/each}}
+				</ul>
+		{{/if}}
+
+
+
+
+</template>
+
+<template name="scoreCard">
+ <div class="container">
+ 
+
+<p>
+	<div class="container">
+      <h1 align="center" >Total Score: {{getTotalScore}}</h1>
+      <hr>
+  </div>
+
+  <br><br>
+        {{#each questionData}}
+        <ul class="list-group">
+          <li class="list-group-item list-group-item-info"><b>Question {{getIndex @index}}: {{arr1}}</b><br /></li>
+       <li class="list-group-item">   Option1: {{arr2}} {{#if compareString arr2 arr6 }} <span class="glyphicon glyphicon-ok" style="color:green" aria-hidden="true"></span> {{ else }} {{ #if compareString arr2 arr7 }} <span class="glyphicon glyphicon-remove" style="color:red" aria-hidden="true"></span> {{/if}} {{/if}}<br />
+          Option2: {{arr3}} {{#if compareString arr3 arr6 }} <span class="glyphicon glyphicon-ok" style="color:green" aria-hidden="true"></span> {{ else }} {{ #if compareString arr3 arr7 }} <span class="glyphicon glyphicon-remove" style="color:red" aria-hidden="true"></span> {{/if}} {{/if}}<br />
+          Option3: {{arr4}} {{#if compareString arr4 arr6 }} <span class="glyphicon glyphicon-ok" style="color:green" aria-hidden="true"></span> {{ else }} {{ #if compareString arr4 arr7 }} <span class="glyphicon glyphicon-remove" style="color:red" aria-hidden="true"></span> {{/if}} {{/if}}<br />
+          Option4: {{arr5}} {{#if compareString arr5 arr6 }} <span class="glyphicon glyphicon-ok" style="color:green" aria-hidden="true"></span> {{ else }} {{ #if compareString arr5 arr7 }} <span class="glyphicon glyphicon-remove" style="color:red" aria-hidden="true"></span> {{/if}} {{/if}}<br /><strong>Score: {{#if compareString arr6 arr7}}10{{else}}0{{/if}}</strong></li>
+
+          
+      </ul>
+        {{/each}}
+</p>
+
+{{#if Group}}
+	<button type='submit' class="btn btn-primary btn-primary btn3d" value='submit' id="onsubmitbutton">Get Leaderboard</button>
+{{else}}
+	<button type="submit" class="btn btn-primary btn-primary btn3d" value='submit' id="home1">Go back to home</button>
+{{/if}}  
+</div>
+
+</template>
+
+
+<template name = "profile1">
+
+ <div class="container">
+<h2><center>Welcome {{getProfileData.username}}</center></h2>
+<h4><center><q>You Miss 100% Of The Shots You Don't Take</q></center><br/></h4>
+
+<p><h4><b><u>What we Know About You</u></b></h4><br />
+<b>Your Email:</b> {{getProfileData.email}} <br/>
+<b>When You Registered With Us:</b> {{getProfileData.created}} <br/>
+</p>
+
+<div class="row">
+<div class="col-md-6"> 
+	<center><h3><u>Individual</u></h3></center><br />
+	<table class="table table-stripped">
+        <thead style="border-style:solid; border-color:grey; padding-top:5px;">
+            <tr>
+               <th>Category</th>
+                <th>Score</th>
+              <th>Taken On</th>
+               
+            </tr>
+        </thead>
+		
+        <tbody style="overflow-y:scroll;">
+        	{{#each getStatsIndividual}}
+            <tr>
+            	<!-- Row 1 -->
+                <td>{{arr1}}</td>
+                <td>{{arr2}}</td>
+                <td>{{arr3}}</td>
+            </tr>
+            {{/each}}
+        </tbody>
+</table>
+</div>
+
+<div class="col-md-6">
+	<center><h3><u>Group</u></h3></center> <br />
+<table class="table table-stripped" > 
+        <thead style="border-style:solid; border-color:grey; padding-top:5px;">
+            <tr>
+               <th>Category</th>
+                <th>Score</th>
+              <th>Taken On</th>
+               
+            </tr>
+        </thead>
+		
+        <tbody style="overflow-y:scroll;">
+        	{{#each getStatsGroup}}
+            <tr>
+            	
+                <td>{{arr1}}</td>
+                <td>{{arr2}}</td>
+                <td>{{arr3}}</td>
+            </tr>
+            {{/each}}
+        </tbody>
+</table>
+</div>
+</div>
+	</div>
+
+</template>
+
+<template name = 'rules'>
+	
+<div class="container">
+	<i><center><h3><u>Quiz-o-Pedia</u></h3></center> <br/><br/>
+<strong>What is Quiz-O-Pedia?</strong> <br/>
+Quiz-O-Pedia is an online quizzing website. We bring best of quizzing and help you learn, have fun and let smartest brains compete with each other all at the same time. <br/><br/>
+<strong>Whom is Quiz-O-Pedia meant for?</strong><br/>
+You don’t need a PhD. to play. (If you have one we will be honored to see you play). Quiz-O-Pedia is for anyone and everyone.<br/><br/>
+<strong>How do I play?</strong><br/>
+Register following a simple process, log in with that id, choose the category you like and start quizzing.<br/><hr><br/>
+<mark>Questions</mark> <br/><br/>
+<strong>What kinds of questions do I expect?</strong><br/>
+The questions will be based on the category they belong to, which would include general questions, MELA-music entertainment, literature and arts and Sports which would cover all the domains.<br/><hr><br/>
+<mark>Answers</mark> <br/><br/>
+<strong>What is the format of the answer?</strong><br/>
+The answers are in the MCQ format so the only requirement is selecting the appropriate option. 
+The answer I looked up on the internet is correct but Quiz-o-Pedia doesn’t accept it!
+Contact us at quizzing@daiict.ac.in and we’ll be happy to follow up.<br/><br/>
+<strong>What are the buttons at the top meant for?</strong><br/>
+If you want to move to a random question or go back to a selected question for reviewing your answers, select one of those buttons to go to a specific question in the quiz.<br/><hr><br/>
+<mark>Correctness Indicator</mark><br/><br/>
+<strong>How are the correct answers evaluated?</strong><br/>
+These are basically MCQ questions so if the right answer is selected, you will get 10 points.<br/><hr><br/>
+<mark>General</mark><br/><br/>
+<strong>What would happen  if a quiz is initiated?</strong><br/>
+For a group quiz, a waiting timer of 1 minute will start which will allow various users to subscribe to that particular quiz, otherwise the quiz will start individually.
+Following this, a quiz with 10 questions with a timer of 5 minutes will be initiated. <br/><br/>
+<strong>What would happen once the timer of the quiz expires?</strong><br/>
+The quiz will automatically be submiited. For an individual/group quiz, you will be directed to the scorecard page and you could move to the leaderboard page as an option appears for the same for group quiz.  <br/><br/>
+<strong>Would the internet be accessible during the quiz?</strong><br/>
+We cannot stop you from doing that but we’ll advice you to not Google the answers as the basic motive of learning and having fun is disturbed.<br/><br/>
+If you have any further questions please feel free to mail us,<b> quizzing@daiict.ac.in</b><br/><hr></i>
+</div>
+
+
+</template>
+
+<template name="addquiz">
+  <form class="quizEntry" id="quizEntry">
+
+		<div class="form-group">
+			<label>Quiz Creater: </label>
+			<input id='creater' type='text' required />
+		</div>
+
+		<div class="form-group" id="addCodeHere">
+			<label>Category: </label>
+			<select id="category">
+			  <option value="General">General</option>
+			  <option value="MELA">MELA</option>
+			  <option value="Sports">Sports</option>
+			</select>
+		</div>
+
+		<script type="text/javascript">
+			var form_string = "<br>";
+			for (var i = 1; i <= 10; i++) {
+				form_string += "<div class='form-group'><label>Question "+ i +": </label>";
+				form_string += "<input id='question" + i + "' type='text' required /></div>" ;
+
+				for (var op = 1; op <= 4; op++) {
+					form_string += "<div class='form-group'><label>Option "+ op +": </label>";
+					form_string += "<input id='question" + i + "_option" + op + "' type='text' required /> </div>";
+				}
+
+				form_string += "<div class='form-group'><label>Answer "+ i +": </label>";
+				form_string += "<input id='question" + i + "_answer" + "' type='number' min='1' max='4' step='1' required /> </div> <br>";
+			}
+			
+			var temp = document.getElementById('addCodeHere');
+			temp.insertAdjacentHTML('afterend', form_string);
+		</script>
+
+		<div class="form-group">
+	    	Would you like to conduct a quiz for this questionnaire?
+	    	<input type="radio" name="conductQuiz" value="yes"> Yes
+	  		<input type="radio" name="conductQuiz" value="no" checked="checked" required> No
+	    </div>
+	    <div class="form-group" id="quizTimeDiv">
+	    	Select date and time:
+	    	<input id='quizTime' type='datetime-local' />
+	    </div>
+
+	    <br><button type='submit' value='Submit'>Submit</button>
+
+    </form>
+
+</template>
